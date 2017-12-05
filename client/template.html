@@ -1,0 +1,162 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title><%= title %></title>
+  <meta name="description" content="The HTML5 Herald">
+
+  <style type="text/css">
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      padding: 20px 0px;
+      font-family: 'Helvetica Neue', 'Arial', 'san-serif';
+      font-size: 16px;
+      background: whitesmoke;
+      color: #333;
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .header {
+      width: 100%;
+      padding: 0px 20px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: normal;
+      margin: 0 0 10px 0;
+    }
+
+    .filter {
+      overflow: hidden;
+      padding: 15px;
+      background: #7FDBFF;
+      border-radius: 5px;
+    }
+
+    .states {
+      float: left;
+    }
+
+    .states a {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+      padding: 10px;
+      border: 1px solid transparent;
+      color: #fff;
+      background: #001f3f;
+      text-decoration: none;
+    }
+
+    .states a:first-child {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      border-right: none;
+    }
+
+    .states a:last-child {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-left: none;
+    }
+
+    .states a:hover {
+      background: #0074D9;
+      color: #fff;
+    }
+
+    .states a.active {
+      background: #fff;
+      color: #333;
+    }
+
+    .search {
+      float: right;
+    }
+
+    #q {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid rgba(155,155,155,0.5);
+    }
+
+    #submit {
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      display: inline-bloc;
+    }
+
+    .statuses-table {
+      width: 100%;
+    }
+
+    .statuses-table th,
+    .statuses-table td {
+      padding: 10px;
+    }
+
+    .statuses-table-row-state-critical {
+      background-color: #FF4136;
+      color: white;
+    }
+
+    .statuses-table-row-state-warning {
+      background-color: #FFDC00;
+    }
+
+    .statuses-table-row-state-ok {
+      background-color: #7ae186;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class='header'>
+    <h1><%= title %></h1>
+  </div>
+  <div class='filter'>
+    <div class='states'>
+      <a href="?">ALL</a>
+      <a href="?state=OK" class="<%= stateFilter == 'OK' ? 'active' : '' %>">OK</a>
+      <a href="?state=WARNING" class="<%= stateFilter == 'WARNING' ? 'active' : '' %>">WARNING</a>
+      <a href="?state=CRITICAL" class="<%= stateFilter == 'CRITICAL' ? 'active' : '' %>">CRITICAL</a>
+    </div>
+
+    <div class='search'>
+      <form action="" method="GET">
+        <input name="q" id="q" placeholder="search term here..." value="<%= !!queryFilter ? queryFilter : '' %>" />
+        <input type="submit" id="submit" value="Go" />
+      </form>
+    </div>
+  </div>
+  <div class="statuses">
+    <table class="statuses-table">
+      <thead>
+        <th width="15%" class="statuses-table-state-th">State</th>
+        <th width="15%" class="statuses-table-key-th">Key</th>
+        <th width="55%"class="statuses-table-message-th">Message</th>
+        <th width="15%" class="statuses-table-updated-th">Updated</th>
+      </thead>
+      <tbody>
+        <% _.forEach(statuses, (status) => { %>
+          <tr class="statuses-table-row-state-<%= _.lowerCase(status.state) %>">
+            <td><%= status.state %></td>
+            <td><%= status.key %></td>
+            <td><%= status.message %></td>
+            <td><%= status.updatedAt %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "serverless-status",
+  "version": "0.0.1",
+  "description": "A serverless implementation of a simple status server",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.163.0",
+    "bluebird": "^3.5.1",
+    "extend": "^3.0.1",
+    "lodash": "^4.17.4",
+    "serverless-domain-manager": "^1.1.21"
+  }
+}
